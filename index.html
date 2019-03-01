@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body{
+         margin:0;
+         padding:0;
+        }
+        #noti-container{
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: grid;
+        }
+        #notif{
+            display: grid;
+            grid-gap: 10px;
+            align-items: center;
+            grid-template-columns: auto 1fr;
+            justify-self: center;
+            width: 250px;
+            padding: 15px 25px;
+            color: white;
+            border-radius: 3px 3px 0 0;
+            box-shadow:
+            0px 3px 5px -1px rgba(0, 0,0,0.2)
+            0px 6px 10px 0px rgba(0, 0,0,0.2)
+            0px 1px 18px 0px rgba(0, 0,0,0.2);
+            transform: translate(200px);
+
+
+        }
+        @keyframes slide-up{
+            0%{
+                transform: translateY(200px);
+            }
+            20%{
+                transform: translateY(0);
+            }
+            80%{
+                transform: translateY(0)
+
+            }
+            100%{
+                transform: translateY(200px);
+            }
+
+        }
+
+        .online, .offline{
+            animation: slide-up 7s linear;
+        }
+        .online{
+            background-color: #4caf50;
+
+        }
+        .offline{
+            background-color: #ff5252;
+        }
+    </style>
+    <script>
+    window.addEventListener('online', () => {
+        callNotif('online', 'online', '&check;')
+
+    })
+    window.addEventListener('offline', () => {
+        callNotif('offline', 'offline', '&#x26A0')
+
+    })
+
+    function callNotif(type, statustext, iconHTML){
+        const notification =document.getElementById('notif')
+        const status = document.getElementById('status')
+        const icon = document.getElementById('icon')
+        status.innerText = statustext;
+        icon.innerHTML = iconHTML;
+        notification.classList.remove('offline', 'online',)
+        void notification.offsetWidth;
+        notification.className = type;
+    }
+    </script>
+</head>
+<body>
+    <div id="noti-container">
+        <div id="notif">
+            <div id="icon">
+
+            </div>
+            <div id="status">
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
